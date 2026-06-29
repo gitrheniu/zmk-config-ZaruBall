@@ -12,7 +12,19 @@
 #define RAISE 2
 #define ADJUST 3
 #define MOUSE 4
-#define SCROLL 1
+#define SCROLL MOUSE
+
+// ZMK behavior 略語メモ:
+// &kp  = Key Press        (通常のキー入力)
+// &mt  = Mod-Tap          (短押しでキー、長押しで修飾キー)
+// &lt  = Layer-Tap        (短押しでキー、長押しでレイヤー)
+// &mo  = Momentary Layer  (押している間だけレイヤー有効)
+// &tog = Toggle Layer     (レイヤーのオン/オフ切替)
+// &to  = To Layer         (指定レイヤーへ移動)
+// &td  = Tap Dance        (押した回数で動作を変える)
+// &sk  = Sticky Key       (次のキーまで押しっぱなし扱い)
+// &mkp = Mouse Key Press  (マウスボタン)
+// &msc = Mouse Scroll     (マウススクロール)
 
 // スクロール量の設定
 
@@ -21,6 +33,9 @@
 // トラックボールの設定(AML, SCROLL)
 
 &trackball_listener {
+    // Mouse レイヤー以外ではトラックボール入力を無効化
+    layers = <MOUSE>;
+
     input-processors = <
                         // トラックボールの向きの変更(ZaruBallv1とv2,v3ではセンサーの向きが異なるので調整してください。デフォルトではv2,v3用)
                         // &zip_xy_transform (INPUT_TRANSFORM_XY_SWAP | INPUT_TRANSFORM_Y_INVERT | INPUT_TRANSFORM_X_INVERT)
@@ -29,6 +44,7 @@
     >;
 
     scroller {
+        // スクロール変換も Mouse レイヤー中のみ有効
         layers = <SCROLL>;
         input-processors = <
                             // スクロールの向きの変更
