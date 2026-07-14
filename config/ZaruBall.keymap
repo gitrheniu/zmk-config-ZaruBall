@@ -28,20 +28,26 @@
 
 // スクロール量の設定
 
+#undef ZMK_POINTING_DEFAULT_SCRL_VAL
 #define ZMK_POINTING_DEFAULT_SCRL_VAL 100
 
 // トラックボールの設定(AML, SCROLL)
 
 &trackball_listener {
-    // Mouse レイヤー以外ではトラックボール入力を無効化
-    layers = <MOUSE>;
-
+    // Mouse レイヤー以外ではトラックボール移動量を 0 にして無効化
     input-processors = <
+                         &zip_xy_scaler 0 1
+    >;
+
+    mouse_move {
+        layers = <MOUSE>;
+        input-processors = <
                         // トラックボールの向きの変更(ZaruBallv1とv2,v3ではセンサーの向きが異なるので調整してください。デフォルトではv2,v3用)
                         // &zip_xy_transform (INPUT_TRANSFORM_XY_SWAP | INPUT_TRANSFORM_Y_INVERT | INPUT_TRANSFORM_X_INVERT)
                          &zip_xy_transform (INPUT_TRANSFORM_Y_INVERT)
                         // &zip_temp_layer MOUSE 500 // 500ms stay at mouse layer
-    >;
+        >;
+    };
 
     scroller {
         // スクロール変換も Mouse レイヤー中のみ有効
@@ -198,7 +204,7 @@
 &to_layer_0 ESC             &to_layer_0 N1  &to_layer_0 N2  &to_layer_0 N3  &to_layer_0 N4      &to_layer_0 N5                   &to_layer_0 N6   &to_layer_0 N7  &to_layer_0 N8  &to_layer_0 N9  &to_layer_0 N0      &to_layer_0 MINUS
 &to_layer_0 TAB             &to_layer_0 Q   &to_layer_0 W   &to_layer_0 E   &to_layer_0 R       &to_layer_0 T                    &to_layer_0 Y    &to_layer_0 U   &to_layer_0 I   &to_layer_0 O   &to_layer_0 P       &to_layer_0 EQUAL
 &to_layer_0 CAPS            &to_layer_0 A   &mkp RCLK       &mkp MCLK       &mkp_exit_AML LCLK  &msc SCRL_UP    &msc SCRL_LEFT   &msc SCRL_LEFT   &msc SCRL_UP    &mkp LCLK       &mkp MCLK       &mkp RCLK           &to_layer_0 SINGLE_QUOTE  &to_layer_0 SEMICOLON
-&to_layer_0 LSHIFT          &to_layer_0 Z   &to_layer_0 X   &mkp MB4        &mkp MB5            &msc SCRL_DOWN  &msc SCRL_RIGHT  &msc SCRL_RIGHT  &msc SCRL_DOWN  &mkp MB4        &mkp MB5        &to_layer_0 PERIOD  &to_layer_0 SLASH         &mt
+&to_layer_0 LSHIFT          &to_layer_0 Z   &to_layer_0 X   &mkp MB4        &mkp MB5            &msc SCRL_DOWN  &msc SCRL_RIGHT  &msc SCRL_RIGHT  &msc SCRL_DOWN  &mkp MB4        &mkp MB5        &to_layer_0 PERIOD  &to_layer_0 SLASH         &none
 &to_scroll_layer BACKSLASH                  &trans          &trans          &trans              &trans          &trans           &trans           &trans                                                              &trans
             >;
         };
