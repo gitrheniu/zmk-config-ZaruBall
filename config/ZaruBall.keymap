@@ -211,7 +211,7 @@
             sensor-bindings = <&scroll_down_up>;
             bindings = <
 &trans                       &trans         &trans         &trans         &trans              &trans                       &trans         &trans       &trans       &trans       &trans         &trans
-&trans                       &trans         &trans         &trans         &trans              &trans                       &trans         &trans       &to BASE    &trans       &trans         &trans
+&trans                       &trans         &trans         &trans         &trans              &trans                       &trans         &trans       &to_layer_0 I &trans       &trans         &trans
 &trans                       &trans         &mkp RCLK       &mkp MCLK       &mkp_exit_AML LCLK  &msc SCRL_UP                &msc SCRL_LEFT &msc SCRL_LEFT &msc SCRL_UP &mkp LCLK      &mkp MCLK      &mkp RCLK       &trans          &trans
 &trans                       &trans         &trans         &mkp MB4        &mkp MB5            &msc SCRL_DOWN              &msc SCRL_RIGHT &msc SCRL_RIGHT &msc SCRL_DOWN &mkp MB4       &mkp MB5       &trans          &trans          &none
 &to_scroll_layer BACKSLASH                  &trans          &trans          &trans              &trans          &trans           &trans           &trans                                                              &trans
