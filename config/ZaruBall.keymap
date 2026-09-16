@@ -14,6 +14,17 @@
 #define MOUSE 4
 #define SCROLL MOUSE
 
+/ {
+    zip_temp_layer_threshold: zip_temp_layer_threshold {
+        compatible = "zmk,input-processor-temp-layer-threshold";
+        #input-processor-cells = <2>;
+        threshold = <30>;
+        reset-timeout-ms = <200>;
+        // Iキー（position 20）以外ではMouseレイヤーを解除しない
+        excluded-positions = <0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60>;
+    };
+};
+
 // ZMK behavior 略語メモ:
 // &kp  = Key Press        (通常のキー入力)
 // &mt  = Mod-Tap          (短押しでキー、長押しで修飾キー)
@@ -36,6 +47,7 @@
 &trackball_listener {
     // Mouse レイヤー以外ではトラックボール移動量を 0 にして無効化
     input-processors = <
+                         &zip_temp_layer_threshold MOUSE 2147483647
                          &zip_xy_scaler 0 1
     >;
 
@@ -153,7 +165,7 @@
             sensor-bindings = <&scroll_down_up>;
             bindings = <
 &kp ESC    &kp N1  &kp N2      &kp N3    &kp N4     &kp N5                       &kp NUMBER_6  &kp N7    &kp N8  &kp N9     &kp N0   &kp DELETE
-&kp TAB    &kp Q   &kp W       &kp E     &kp R      &kp T                        &kp Y         &kp U     &tog MOUSE &kp O    &kp P    &kp BACKSPACE
+&kp TAB    &kp Q   &kp W       &kp E     &kp R      &kp T                        &kp Y         &kp U     &kp I   &kp O      &kp P    &kp BACKSPACE
 &kp CAPS   &kp A   &kp S       &kp D     &kp F      &kp G      &kp INS           &kp MINUS     &kp H     &kp J   &kp K      &kp L    &kp SEMI       &kp ENTER
 &kp LSHFT  &kp Z   &kp X       &kp C     &kp V      &kp B      &kp GRAVE         &kp RBKT      &kp N     &kp M   &kp COMMA  &kp DOT  &kp FSLH       &none
 &td0               &kp C_MUTE  &kp LWIN  &kp LCTRL  &kp SPACE  &to_scroll_layer  &lt 2 RET     &kp BSPC                              &td1
@@ -201,7 +213,7 @@
             sensor-bindings = <&scroll_down_up>;
             bindings = <
 &trans                       &trans         &trans         &trans         &trans              &trans                       &trans         &trans       &trans       &trans       &trans         &trans
-&trans                       &trans         &trans         &trans         &trans              &trans                       &trans         &trans       &tog MOUSE  &trans       &trans         &trans
+&trans                       &trans         &trans         &trans         &trans              &trans                       &trans         &trans       &to_layer_0 I &trans       &trans         &trans
 &trans                       &trans         &mkp RCLK       &mkp MCLK       &mkp_exit_AML LCLK  &msc SCRL_UP                &msc SCRL_LEFT &msc SCRL_LEFT &msc SCRL_UP &mkp LCLK      &mkp MCLK      &mkp RCLK       &trans          &trans
 &trans                       &trans         &trans         &mkp MB4        &mkp MB5            &msc SCRL_DOWN              &msc SCRL_RIGHT &msc SCRL_RIGHT &msc SCRL_DOWN &mkp MB4       &mkp MB5       &trans          &trans          &none
 &to_scroll_layer                            &trans          &trans          &trans              &trans          &trans           &trans           &trans                                                              &trans
